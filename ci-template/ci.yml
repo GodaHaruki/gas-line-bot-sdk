@@ -1,0 +1,50 @@
+name: ci
+
+on:
+  push:
+    # paths-ignore:
+    #   - "README*"
+    #   - "LICENSE"
+  pull_request:
+    # paths-ignore:
+    #   - "README*"
+    #   - "LICENSE"
+
+env:
+  node-version: 16
+
+jobs:
+  # lint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: ${{ env.node-version }}
+  #     - run: npm install
+  #     - run: npm run lint
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.node-version }}
+      - name: install package
+        run: npm i
+      - name: build
+        run: npm run build
+      - run: sudo npm i -g @google/clasp
+      - name: Setup clasp config
+        run: |
+          echo -n '${{ secrets.CLASPRC }}' > ~/.clasprc.json
+          echo -n '${{ secrets.CLASP }}' > .clasp.json
+      - name: Push
+        run: echo 'yes' | clasp push
+      # - name: Version
+      # run: clasp version
+      - name: Deploy
+        run: clasp deploy -i AKfycbwU7yERsBFBhlQjX9axfx3uXzq-DDocw2XPW8c9j2TF53DAQjTM2gSctUWBpAvOytV5
+      - name: check deployments
+        run: clasp deployments
