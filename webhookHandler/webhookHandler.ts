@@ -16,30 +16,30 @@ import {
   LINEThingsScenarioExecutionEvent,
 } from "@line/bot-sdk";
 
-type LINEWebhookEventImplement<Evt extends WebhookEvent> = (
+type WebhookEventImplement<Evt extends WebhookEvent> = (
   evt: Evt
 ) => Promise<void>;
 
-interface LINEWebhookEventImplements {
-  message?: LINEWebhookEventImplement<MessageEvent>; // anyにして実装の自由度を上げてもいいかも
-  unsend?: LINEWebhookEventImplement<UnsendEvent>;
-  follow?: LINEWebhookEventImplement<FollowEvent>;
-  unfollow?: LINEWebhookEventImplement<UnfollowEvent>;
-  join?: LINEWebhookEventImplement<JoinEvent>;
-  leave?: LINEWebhookEventImplement<LeaveEvent>;
-  memberJoined?: LINEWebhookEventImplement<MemberJoinEvent>;
-  memberLeft?: LINEWebhookEventImplement<MemberLeaveEvent>;
-  postback?: LINEWebhookEventImplement<PostbackEvent>;
-  videoPlayComplete?: LINEWebhookEventImplement<VideoPlayCompleteEvent>;
-  beacon?: LINEWebhookEventImplement<BeaconEvent>;
-  accountLink?: LINEWebhookEventImplement<AccountLinkEvent>;
-  things?: LINEWebhookEventImplement<LINEThingsScenarioExecutionEvent>;
+interface WebhookEventImplements {
+  message?: WebhookEventImplement<MessageEvent>; // anyにして実装の自由度を上げてもいいかも
+  unsend?: WebhookEventImplement<UnsendEvent>;
+  follow?: WebhookEventImplement<FollowEvent>;
+  unfollow?: WebhookEventImplement<UnfollowEvent>;
+  join?: WebhookEventImplement<JoinEvent>;
+  leave?: WebhookEventImplement<LeaveEvent>;
+  memberJoined?: WebhookEventImplement<MemberJoinEvent>;
+  memberLeft?: WebhookEventImplement<MemberLeaveEvent>;
+  postback?: WebhookEventImplement<PostbackEvent>;
+  videoPlayComplete?: WebhookEventImplement<VideoPlayCompleteEvent>;
+  beacon?: WebhookEventImplement<BeaconEvent>;
+  accountLink?: WebhookEventImplement<AccountLinkEvent>;
+  things?: WebhookEventImplement<LINEThingsScenarioExecutionEvent>;
 }
 
-class LINEWebHookEventHandlers {
-  eventsHandler: LINEWebhookEventImplements;
+class WebhookEventHandlers {
+  eventsHandler: WebhookEventImplements;
 
-  constructor(eventImplements?: LINEWebhookEventImplements) {
+  constructor(eventImplements?: WebhookEventImplements) {
     if (eventImplements) {
       this.eventsHandler = eventImplements;
     } else {
@@ -62,8 +62,8 @@ class LINEWebHookEventHandlers {
   }
 
   protected setHandler<Evt extends WebhookEvent>(
-    handlerName: keyof LINEWebhookEventImplements,
-    f: LINEWebhookEventImplement<Evt>
+    handlerName: keyof WebhookEventImplements,
+    f: WebhookEventImplement<Evt>
   ) {
     if (!handlerName) {
       throw TypeError("handlerName is empty");
@@ -87,60 +87,60 @@ class LINEWebHookEventHandlers {
   //     "beacon",
   //     "accountLink",
   //     "things",
-  //   ] as (keyof LINEWebhookEventImplements)[]
+  //   ] as (keyof WebhookEventImplements)[]
   // ).forEach((k) => Object.defineProperty(this, k, this.eventsHandler[k]!));
 
-  set message(f: LINEWebhookEventImplement<MessageEvent>) {
+  set message(f: WebhookEventImplement<MessageEvent>) {
     this.setHandler("message", f);
   }
 
-  set unsend(f: LINEWebhookEventImplement<UnsendEvent>) {
+  set unsend(f: WebhookEventImplement<UnsendEvent>) {
     this.setHandler("unsend", f);
   }
 
-  set follow(f: LINEWebhookEventImplement<FollowEvent>) {
+  set follow(f: WebhookEventImplement<FollowEvent>) {
     this.setHandler("follow", f);
   }
 
-  set unfollow(f: LINEWebhookEventImplement<UnfollowEvent>) {
+  set unfollow(f: WebhookEventImplement<UnfollowEvent>) {
     this.setHandler("unfollow", f);
   }
 
-  set join(f: LINEWebhookEventImplement<JoinEvent>) {
+  set join(f: WebhookEventImplement<JoinEvent>) {
     this.setHandler("join", f);
   }
 
-  set leave(f: LINEWebhookEventImplement<LeaveEvent>) {
+  set leave(f: WebhookEventImplement<LeaveEvent>) {
     this.setHandler("leave", f);
   }
 
-  set memberJoined(f: LINEWebhookEventImplement<MemberJoinEvent>) {
+  set memberJoined(f: WebhookEventImplement<MemberJoinEvent>) {
     this.setHandler("memberJoined", f);
   }
 
-  set memberLeft(f: LINEWebhookEventImplement<MemberLeaveEvent>) {
+  set memberLeft(f: WebhookEventImplement<MemberLeaveEvent>) {
     this.setHandler("memberLeft", f);
   }
 
-  set postback(f: LINEWebhookEventImplement<PostbackEvent>) {
+  set postback(f: WebhookEventImplement<PostbackEvent>) {
     this.setHandler("postback", f);
   }
 
-  set videoPlayComplete(f: LINEWebhookEventImplement<VideoPlayCompleteEvent>) {
+  set videoPlayComplete(f: WebhookEventImplement<VideoPlayCompleteEvent>) {
     this.setHandler("videoPlayComplete", f);
   }
 
-  set beacon(f: LINEWebhookEventImplement<BeaconEvent>) {
+  set beacon(f: WebhookEventImplement<BeaconEvent>) {
     this.setHandler("beacon", f);
   }
 
-  set accountLink(f: LINEWebhookEventImplement<AccountLinkEvent>) {
+  set accountLink(f: WebhookEventImplement<AccountLinkEvent>) {
     this.setHandler("accountLink", f);
   }
 
-  set things(f: LINEWebhookEventImplement<LINEThingsScenarioExecutionEvent>) {
+  set things(f: WebhookEventImplement<LINEThingsScenarioExecutionEvent>) {
     this.setHandler("things", f);
   }
 }
 
-export default LINEWebHookEventHandlers;
+export default WebhookEventHandlers;
