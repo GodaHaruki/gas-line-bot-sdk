@@ -36,7 +36,7 @@ interface WebhookEventImplements {
   things?: WebhookEventImplement<LINEThingsScenarioExecutionEvent>;
 }
 
-class WebhookEventHandlers {
+class WebhookHandlers {
   eventsHandler: WebhookEventImplements;
 
   constructor(eventImplements?: WebhookEventImplements) {
@@ -143,4 +143,4 @@ class WebhookEventHandlers {
   }
 }
 
-export default WebhookEventHandlers;
+export default WebhookHandlers;
