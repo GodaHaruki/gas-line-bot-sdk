@@ -1,5 +1,5 @@
 import { WebhookRequestBody, MessageEvent, TextMessage } from "@line/bot-sdk";
-import LINEWebHookEventHandlers from "./event/handleEvent";
+import WebhookHandlers from "./webhookHandler/webhookHandler";
 import { sendMessageWithReplyApi } from "./util/Line/sendMessage";
 
 function doGet(e: GoogleAppsScript.Events.DoGet): void {}
@@ -9,7 +9,7 @@ function doPost(e: GoogleAppsScript.Events.DoPost): void {
     e.postData.contents
   ) as WebhookRequestBody;
 
-  const handler = new LINEWebHookEventHandlers();
+  const handler = new WebhookHandlers();
 
   handler.message = async (evt: MessageEvent) => {
     // オウムがえし
